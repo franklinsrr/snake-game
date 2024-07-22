@@ -1,5 +1,5 @@
-import { IBoard } from "../interface/game";
-import { Board } from "./board";
+import { IBoard } from "@/interface/game";
+import { Board } from "@/board/board";
 
 
 export class Game {
