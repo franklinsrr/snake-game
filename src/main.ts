@@ -1,7 +1,9 @@
 import './style.css'
+import { Game } from './game/game';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-  </div>
-`
+const app = document.querySelector<HTMLDivElement>('#app');
+
+const game = new Game();
+
+game.render(app);
 
