@@ -1,5 +1,6 @@
+import { IState } from "./game";
 
 export interface IBoard {
-    renderBoard(app: HTMLDivElement | null, state: number): void;
+    renderBoard(app: HTMLDivElement | null, state: IState): void;
 
 }

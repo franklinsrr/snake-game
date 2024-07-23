@@ -1,21 +1,22 @@
 import { IBoard } from "@/interfaces/board";
+import { IState } from "@/interfaces/game";
 import { Snake } from "@/snake/snake";
 
 export class Board implements IBoard {
+    private table: IState[][];
 
-    renderBoard(app: HTMLDivElement | null, state: number) {
-        let init = 0;
+    constructor() {
+        this.table = Array.from({ length: 44 }, (_, y) => Array.from({ length: 44 }, (_, x) => ({ y: (y + 1), x: (x + 1) })));
+    }
 
-        const width = app?.style.width as unknown as number || 880;;
-        const height = app?.style.height as unknown as number || 880;
+    renderBoard(app: HTMLDivElement | null, state: IState) {
 
-        const squares = (width * height) / (20 * 20);
-
-        while (init < squares) {
-            const snake = new Snake();
-            const squareElement = snake.renderSnake(state, init);
-            app?.appendChild(squareElement);
-            init++;
+        for (const positions of this.table) {
+            positions.forEach((square) => {
+                const snake = new Snake();
+                const squareElement = snake.renderSnake(state, square);
+                app?.appendChild(squareElement);
+            })
         }
     }
 }
