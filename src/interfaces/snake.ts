@@ -1,6 +1,7 @@
+import { IState } from "./game";
 import { ISquare } from "./square";
 
 export interface ISnake {
     square: ISquare;
-    renderSnake(state: number, position: number): HTMLDivElement;
+    renderSnake(IState: IState, position: IState): HTMLDivElement;
 }

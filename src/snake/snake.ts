@@ -1,4 +1,5 @@
 import { Square } from "@/board/Square";
+import { IState } from "@/interfaces/game";
 import { ISnake } from "@/interfaces/snake";
 import { ISquare } from "@/interfaces/square";
 
@@ -9,11 +10,11 @@ export class Snake implements ISnake {
         this.square = square;
     }
 
-    renderSnake(state: number, currentSquare: number) {
+    renderSnake(state: IState, currentSquare: IState) {
 
         let squareElement;
 
-        if (state == currentSquare) {
+        if (state.x == currentSquare.x && state.y === currentSquare.y) {
             squareElement = this.square.renderSquare(1);
 
         } else {
