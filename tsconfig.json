@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@board/*": ["src/board/*"],
-      "@game/*": ["src/game/*"]
+      "@game/*": ["src/game/*"],
+      "@interfaces/*": ["src/interfaces/*"]
     },
   },
   "include": ["src"]
