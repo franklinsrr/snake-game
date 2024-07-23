@@ -1,26 +1,29 @@
+import { IState } from "@/interfaces/game";
+
 export class Collision {
     private isCollision = false;
-    private rightSides: number[] = Array.from({ length: 43 }, (_, i) => (i + 1) * 42);
-    private topSides: number[] = Array.from({ length: 43 }, (_, i) => (i - 1) + 1);
-    private leftSides: number[] = Array.from({ length: 43 }, (_, i) => (i + 1) * 43);
-    private bottomSides: number[] = Array.from({ length: 43 }, (_, i) => (i * 1892) + 1);
+    private topSides: IState[] = Array.from({ length: 44 }, (_, i) => ({ x: (i + 1), y: 1 }));
+    private bottomSides: IState[] = Array.from({ length: 44 }, (_, i) => ({ x: (i + 1), y: 44 }));
+    private rightSides: IState[] = Array.from({ length: 44 }, (_, i) => ({ x: 44, y: i + 1 }));
+    private leftSides: IState[] = Array.from({ length: 44 }, (_, i) => ({ x: 1, y: i + 1 }));
 
-    detectCollision(position: number, direction: string) {
-        console.log("leftSides: ", this.leftSides);
+    validate(position: IState, sides: IState[]) {
+
+        return !!sides.find((side) => side.x === position.x && side.y === position.y);
+    }
+
+    detectCollision(position: IState, direction: string) {
         console.log("direction: ", direction);
 
-
-        if (this.rightSides.includes(position) && direction === "right") {
+        if (this.validate(position, this.rightSides) && direction === "right") {
             this.isCollision = true;
-        } else if (this.topSides.includes(position) && direction === "top") {
+        } else if (this.validate(position, this.topSides) && direction === "up") {
             this.isCollision = true;
-        } else if (this.leftSides.includes(position) && direction === "left") {
+        } else if (this.validate(position, this.leftSides) && direction === "left") {
             this.isCollision = true;
-        } else if (this.bottomSides.includes(position) && direction === "down") {
+        } else if (this.validate(position, this.bottomSides) && direction === "down") {
             this.isCollision = true;
         }
-
-
 
         return this.isCollision;
     }
