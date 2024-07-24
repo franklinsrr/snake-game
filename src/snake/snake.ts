@@ -1,34 +1,45 @@
 import { Square } from "@/board/Square";
-import { IFoodState } from "@/interfaces/food";
-import { ICords, IState } from "@/interfaces/game";
+import { ICords } from "@/interfaces/game";
 import { ISnake } from "@/interfaces/snake";
 import { ISquare } from "@/interfaces/square";
+import { TDirections } from "@interfaces/controls.ts";
 
 export class Snake implements ISnake {
     square: ISquare;
+    direction: TDirections;
+    snakeState: ICords;
+    prevSnakeState: ICords;
 
     constructor(square: ISquare = new Square()) {
         this.square = square;
+        this.direction = "INIT";
+        this.snakeState = { x: 1, y: 1 };
+        this.prevSnakeState = { x: 1, y: 1 };
     }
 
-    renderSnake(state: IState, currentSquare: ICords, food: IFoodState) {
-
-        let squareElement;
-        const { currentStatePosition: StatePosition } = state;
-        const { currentStatePosition: FoodPosition } = food;
-
-        if (StatePosition.x == currentSquare.x && StatePosition.y === currentSquare.y) {
-            squareElement = this.square.renderSquare(1);
-
-        } else {
-            squareElement = this.square.renderSquare(0);
-        }
-
-        if (FoodPosition.x === currentSquare.x && FoodPosition.y === currentSquare.y) {
-            squareElement = this.square.renderSquare(2);
-
-        }
-
-        return squareElement;
+    getSnakePosition(): ICords {
+        return this.snakeState;
     }
+
+    getPrevSnakePosition(): ICords {
+        return this.prevSnakeState;
+    }
+
+    getDirection(): TDirections {
+        return this.direction;
+    }
+
+    setDirection(direction: TDirections) {
+        this.direction = direction;
+    }
+
+    move(cords: ICords, direction: TDirections) {
+        this.snakeState = cords;
+        this.direction = direction;
+    }
+
+    reconciliation() {
+        this.prevSnakeState = this.snakeState;
+    }
+
 }
