@@ -1,32 +1,34 @@
 import { ICords } from "@/interfaces/game";
+import { DIRECTIONS, KEYS } from "@/constants";
+import { TDirections } from "@interfaces/controls.ts";
 
 export class Control {
-    controller(direction: string, statePosition: ICords, callback: (direction: string, cords: ICords) => void) {
+    controller(direction: string, statePosition: ICords, callback: (direction: TDirections, cords: ICords) => void) {
 
-        if (direction === "init") {
-            const newState = { x: 0, y: 0 };
-            callback("right", newState);
+        if (direction === DIRECTIONS.INIT) {
+            const newState = { x: 1, y: 1 };
+            callback(DIRECTIONS.RIGHT as TDirections, newState);
         }
 
         document.addEventListener("keyup", (event) => {
-            if (event.key === "w" && direction !== "up") {
+            if (event.key === KEYS.UP && direction !== DIRECTIONS.UP) {
                 const newState = { x: statePosition.x, y: statePosition.y - 44 };
-                callback("up", newState);
+                callback(DIRECTIONS.UP as TDirections, newState);
 
-            } else if (event.key === "d" && direction !== "right") {
+            } else if (event.key === KEYS.RIGHT && direction !== DIRECTIONS.RIGHT) {
                 const newState = { x: statePosition.x + 1, y: statePosition.y };
-                callback("right", newState);
+                callback(DIRECTIONS.RIGHT as TDirections, newState);
 
-            } else if (event.key === "a" && direction !== "left") {
+            } else if (event.key === KEYS.LEFT && direction !== DIRECTIONS.LEFT) {
                 const newState = { x: statePosition.x - 1, y: statePosition.y };
-                callback("left", newState);
+                callback(DIRECTIONS.LEFT as TDirections, newState);
 
-            } else if (event.key === "s" && direction !== "down") {
+            } else if (event.key === KEYS.DOWN && direction !== DIRECTIONS.DOWN) {
                 const newState = { x: statePosition.x, y: statePosition.y + 44 };
-                callback("down", newState);
+                callback(DIRECTIONS.DOWN as TDirections, newState);
             } else {
-                const newState = { x: 0, y: 0 };
-                callback("right", newState);
+                const newState = { x: 1, y: 1 };
+                callback(DIRECTIONS.RIGHT as TDirections, newState);
             }
         });
 
