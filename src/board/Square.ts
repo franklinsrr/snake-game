@@ -21,9 +21,11 @@ export class Square implements ISquare {
             this.squareElement.style.backgroundColor = "white";
         }
 
-        if (state = 2) {
-            this.squareElement.style.background = "88D66C";
+        if (state === 2) {
+            this.squareElement.style.background = "#88D66C";
         }
+
+
 
         return this.squareElement;
     }
