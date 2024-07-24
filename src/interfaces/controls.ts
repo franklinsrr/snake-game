@@ -1,0 +1,1 @@
+export type TDirections = "UP" | "DOWN" | "LEFT" | "RIGHT" | "INIT";
