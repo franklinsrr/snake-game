@@ -24,7 +24,8 @@
       "@/*": ["src/*"],
       "@board/*": ["src/board/*"],
       "@game/*": ["src/game/*"],
-      "@interfaces/*": ["src/interfaces/*"]
+      "@interfaces/*": ["src/interfaces/*"],
+      "@constants/*": ["src/constants/*"]
     },
   },
   "include": ["src"]
