@@ -1,22 +1,22 @@
-import { IState } from "@/interfaces/game";
+import { ICords } from "@/interfaces/game";
 
 export class Movement {
-    private steps: IState = { y: 1, x: 1 };
+    private steps: ICords = { y: 1, x: 1 };
 
-    init(state: IState, direction: string): [IState, string] {
-        this.steps = state;
+    init(statePosition: ICords, direction: string): [ICords, string] {
+        this.steps = statePosition;
 
         if (direction === "up") {
-            this.steps = { y: state.y - 1, x: state.x };
+            this.steps = { y: statePosition.y - 1, x: statePosition.x };
 
         } else if (direction === "right") {
-            this.steps = { y: state.y, x: state.x + 1 };
+            this.steps = { y: statePosition.y, x: statePosition.x + 1 };
 
         } else if (direction === "left") {
-            this.steps = { y: state.y, x: state.x - 1 };
+            this.steps = { y: statePosition.y, x: statePosition.x - 1 };
 
         } else if (direction === "down") {
-            this.steps = { y: state.y + 1, x: state.x };
+            this.steps = { y: statePosition.y + 1, x: statePosition.x };
         } else {
             direction = "right"
             this.steps = { x: 1, y: 1 };
