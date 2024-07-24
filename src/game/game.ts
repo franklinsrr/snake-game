@@ -1,34 +1,15 @@
 import { IBoard } from "@/interfaces/board";
-import { IState } from "@/interfaces/game";
 import { Board } from "@/board/board";
 import { Control } from "./control";
 import { Collision } from "./collision";
 import { Movement } from "./movement";
 import { Food } from "@/food/food";
+import { Snake } from "@/snake/snake.ts";
 
 
 export class Game {
     private Frames: number = 150;
     private board: IBoard;
-    direction: string = "";
-    private state: IState = {
-        currentStatePosition: { x: 0, y: 0 },
-        food: {
-            currentStatePosition: {
-                x: 0, y: 0
-            },
-            amount: 0
-        }
-    };
-    private prevState: IState = {
-        currentStatePosition: { x: 0, y: 0 },
-        food: {
-            currentStatePosition: {
-                x: 0, y: 0
-            },
-            amount: 0
-        }
-    };
 
     constructor(board: IBoard = new Board()) {
         this.board = board;
@@ -41,30 +22,35 @@ export class Game {
 
         const movement = new Movement();
         const food = new Food();
+        const snake = new Snake();
 
         const stop = setInterval(() => {
             app.innerHTML = "";
             const controls = new Control();
             const collision = new Collision();
-
-            controls.controller(this.direction, this.state.currentStatePosition, (direction) => {
-                this.direction = direction;
+            controls.controller(snake.getDirection(), snake.getSnakePosition(), (direction) => {
+                snake.setDirection(direction);
             });
 
-            const isCollision = collision.detectCollision(this.state.currentStatePosition, this.direction);
+            const isCollision = collision.detectCollision(snake.getSnakePosition(), snake.getDirection());
+            const isFoodCollision = collision.dectectFoodCollision(snake.getSnakePosition(), food.getFood().currentStatePosition);
 
-            if (isCollision) {
-                console.log("collision detected");
-                this.board.renderBoard(app, this.prevState, food.getFood());
+            if (isFoodCollision) {
+                food.lessFood();
+                food.getNewFood();
+            }
+
+            if (isCollision || food.getFood().amount <= 0) {
+                this.board.renderBoard(app, snake.getPrevSnakePosition(), food);
                 clearInterval(stop);
             } else {
-                const [newState, newDirection] = movement.init(this.state.currentStatePosition, this.direction);
-                this.direction = newDirection;
-                this.state.currentStatePosition = newState;
-                this.board.renderBoard(app, this.state, food.getFood());
+                const { move, newDirection } = movement.init(snake.getSnakePosition(), snake.getDirection());
+                snake.move(move, newDirection);
+
+                this.board.renderBoard(app, snake.getSnakePosition(), food);
             }
-            console.log("state: ", this.state);
-            this.prevState = this.state;
+
+            snake.reconciliation();
         }, this.Frames)
     }
 }
