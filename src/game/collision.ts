@@ -1,3 +1,4 @@
+import { DIRECTIONS } from "@/constants";
 import { ICords } from "@/interfaces/game";
 
 export class Collision {
@@ -12,18 +13,22 @@ export class Collision {
     }
 
     detectCollision(position: ICords, direction: string) {
-        console.log("direction: ", direction);
+        console.log("position: ", position);
 
-        if (this.validate(position, this.rightSides) && direction === "right") {
+        if (this.validate(position, this.rightSides) && direction === DIRECTIONS.RIGHT) {
             this.isCollision = true;
-        } else if (this.validate(position, this.topSides) && direction === "up") {
+        } else if (this.validate(position, this.topSides) && direction === DIRECTIONS.UP) {
             this.isCollision = true;
-        } else if (this.validate(position, this.leftSides) && direction === "left") {
+        } else if (this.validate(position, this.leftSides) && direction === DIRECTIONS.LEFT) {
             this.isCollision = true;
-        } else if (this.validate(position, this.bottomSides) && direction === "down") {
+        } else if (this.validate(position, this.bottomSides) && direction === DIRECTIONS.DOWN) {
             this.isCollision = true;
         }
 
         return this.isCollision;
+    }
+
+    dectectFoodCollision(foodPosition: ICords, currentSnakePosition: ICords) {
+        return foodPosition.x === currentSnakePosition.x && foodPosition.y === currentSnakePosition.y;
     }
 }
