@@ -1,5 +1,6 @@
 import { DIRECTIONS } from "@/constants";
 import { ICords } from "@/interfaces/game";
+import { INode } from "@/interfaces/snake";
 
 export class Collision {
     private isCollision = false;
@@ -12,9 +13,27 @@ export class Collision {
         return !!sides.find((side) => side.x === position.x && side.y === position.y);
     }
 
-    detectCollision(position: ICords, direction: string) {
-        console.log("position: ", position);
+    validateBodyCollision(body: INode[], head: INode) {
 
+        let [_, ...removeHead] = body;
+        const isColl = removeHead.find((dot, i) => {
+            const x = dot.data.cords.x === head.data.cords.x;
+            const y = dot.data.cords.y === head.data.cords.y;
+            const isColl = y && x;
+
+            if (isColl && i < 10) {
+                return true;
+            }
+        })
+
+        if (isColl) {
+            return true;
+        }
+
+        return false;
+    }
+
+    detectCollision(position: ICords, direction: string, snakeBody: INode[]) {
         if (this.validate(position, this.rightSides) && direction === DIRECTIONS.RIGHT) {
             this.isCollision = true;
         } else if (this.validate(position, this.topSides) && direction === DIRECTIONS.UP) {
@@ -25,6 +44,9 @@ export class Collision {
             this.isCollision = true;
         }
 
+        if (this.validateBodyCollision(snakeBody, snakeBody[0])) {
+            this.isCollision = true;
+        }
         return this.isCollision;
     }
 
