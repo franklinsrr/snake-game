@@ -1,7 +1,8 @@
 import { ICords } from "@/interfaces/game";
-import {Square} from "@board/Square.ts";
-import {Food} from "@/food/food.ts";
-import {IBoard} from "@interfaces/board.ts";
+import { Square } from "@board/Square.ts";
+import { Food } from "@/food/food.ts";
+import { IBoard } from "@interfaces/board.ts";
+import { INode } from "@/interfaces/snake";
 
 export class Board implements IBoard {
     table: ICords[][];
@@ -11,13 +12,13 @@ export class Board implements IBoard {
         this.table = Array.from({ length: 44 }, (_, y) => Array.from({ length: 44 }, (_, x) => ({ y: (y + 1), x: (x + 1) })));
     }
 
-    render(snakePosition: ICords, food: Food,  currentSquare: ICords) {
+    render(snakePosition: INode[], food: Food, currentSquare: ICords) {
         const square = new Square();
         const foodPosition = food.getFood().currentStatePosition;
         const foodAmount = food.getFood().amount;
         let squareElement;
 
-        if (snakePosition.x == currentSquare.x && snakePosition.y === currentSquare.y) {
+        if (snakePosition.find((dot) => currentSquare.x === dot.data.cords.x && dot.data.cords.y === currentSquare.y)) {
             squareElement = square.renderSquare(1);
         } else {
             squareElement = square.renderSquare(0);
@@ -28,13 +29,13 @@ export class Board implements IBoard {
         }
 
 
-        return  squareElement;
+        return squareElement;
     }
 
-    renderBoard(app: HTMLDivElement | null, snakePosition: ICords, food: Food) {
+    renderBoard(app: HTMLDivElement | null, snakePosition: INode[], food: Food) {
         for (const positions of this.table) {
             positions.forEach((square) => {
-              const squareElement=   this.render(snakePosition, food, square )
+                const squareElement = this.render(snakePosition, food, square)
                 app?.appendChild(squareElement);
             })
         }
