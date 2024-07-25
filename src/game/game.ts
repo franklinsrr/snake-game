@@ -28,11 +28,12 @@ export class Game {
             app.innerHTML = "";
             const controls = new Control();
             const collision = new Collision();
+
             controls.controller(snake.getDirection(), snake.getSnakePosition(), (direction) => {
                 snake.setDirection(direction);
             });
 
-            const isCollision = collision.detectCollision(snake.getSnakePosition(), snake.getDirection());
+            const isCollision = collision.detectCollision(snake.getSnakePosition(), snake.getDirection(), snake.getSnakeBody());
             const isFoodCollision = collision.dectectFoodCollision(snake.getSnakePosition(), food.getFood().currentStatePosition);
 
             if (isFoodCollision) {
@@ -41,14 +42,15 @@ export class Game {
             }
 
             if (isCollision || food.getFood().amount <= 0) {
-                this.board.renderBoard(app, snake.getPrevSnakePosition(), food);
+                this.board.renderBoard(app, snake.getSnakeBody(), food);
                 clearInterval(stop);
             } else {
                 const { move, newDirection } = movement.init(snake.getSnakePosition(), snake.getDirection());
                 snake.move(move, newDirection);
 
-                this.board.renderBoard(app, snake.getSnakePosition(), food);
+                this.board.renderBoard(app, snake.getSnakeBody(), food);
             }
+
 
             snake.reconciliation();
         }, this.Frames)
