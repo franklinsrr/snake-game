@@ -11,19 +11,19 @@ export class Control {
         }
 
         document.addEventListener("keyup", (event) => {
-            if (event.key === KEYS.UP && direction !== DIRECTIONS.UP) {
+            if (event.code === KEYS.UP && direction !== DIRECTIONS.UP) {
                 const newState = { x: statePosition.x, y: statePosition.y - 44 };
                 callback(DIRECTIONS.UP as TDirections, newState);
 
-            } else if (event.key === KEYS.RIGHT && direction !== DIRECTIONS.RIGHT) {
+            } else if (event.code === KEYS.RIGHT && direction !== DIRECTIONS.RIGHT) {
                 const newState = { x: statePosition.x + 1, y: statePosition.y };
                 callback(DIRECTIONS.RIGHT as TDirections, newState);
 
-            } else if (event.key === KEYS.LEFT && direction !== DIRECTIONS.LEFT) {
+            } else if (event.code === KEYS.LEFT && direction !== DIRECTIONS.LEFT) {
                 const newState = { x: statePosition.x - 1, y: statePosition.y };
                 callback(DIRECTIONS.LEFT as TDirections, newState);
 
-            } else if (event.key === KEYS.DOWN && direction !== DIRECTIONS.DOWN) {
+            } else if (event.code === KEYS.DOWN && direction !== DIRECTIONS.DOWN) {
                 const newState = { x: statePosition.x, y: statePosition.y + 44 };
                 callback(DIRECTIONS.DOWN as TDirections, newState);
             } else {
