@@ -7,8 +7,8 @@ export const DIRECTIONS = {
 }
 
 export const KEYS = {
-    UP: "w",
-    DOWN: "s",
-    RIGHT: "d",
-    LEFT: "a"
+    UP: "KeyW",
+    DOWN: "KeyS",
+    RIGHT: "KeyD",
+    LEFT: "KeyA"
 }
