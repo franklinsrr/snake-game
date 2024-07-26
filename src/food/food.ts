@@ -4,7 +4,7 @@ export class Food {
     food: IFoodState;
 
     constructor() {
-        this.food = { currentStatePosition: { x: this.getRandom(), y: this.getRandom() }, amount: 3 };
+        this.food = { currentStatePosition: { x: this.getRandom(), y: this.getRandom() }, amount: 6 };
     }
 
     getRandom() {
