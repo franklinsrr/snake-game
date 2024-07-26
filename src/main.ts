@@ -3,7 +3,15 @@ import { Game } from './game/game';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
+
 const game = new Game();
 
-game.render(app);
 
+
+
+document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+        game.clean(app);
+        game.render(app);
+    }
+});
