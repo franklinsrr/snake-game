@@ -8,8 +8,9 @@ import { Snake } from "@/snake/snake.ts";
 
 
 export class Game {
-    private Frames: number = 150;
+    private Frames: number = 100;
     private board: IBoard;
+    private stop: number = 0;
 
     constructor(board: IBoard = new Board()) {
         this.board = board;
@@ -20,12 +21,14 @@ export class Game {
             throw new Error("there is not app id in the html file");
         }
 
-        const movement = new Movement();
-        const food = new Food();
-        const snake = new Snake();
+        let movement = new Movement();
+        let food = new Food();
+        let snake = new Snake();
+        const title = document.querySelector("#title") as HTMLElement;
 
-        const stop = setInterval(() => {
+        this.stop = setInterval(() => {
             app.innerHTML = "";
+            title.innerHTML = "";
             const controls = new Control();
             const collision = new Collision();
 
@@ -43,16 +46,28 @@ export class Game {
 
             if (isCollision || food.getFood().amount <= 0) {
                 this.board.renderBoard(app, snake.getSnakeBody(), food);
-                clearInterval(stop);
+                if (!food.food.amount) {
+                    title.innerHTML = "You win!"
+                } else {
+                    title.innerHTML = "You Lost!"
+                }
+                clearInterval(this.stop)
             } else {
                 const { move, newDirection } = movement.init(snake.getSnakePosition(), snake.getDirection());
                 snake.move(move, newDirection);
 
                 this.board.renderBoard(app, snake.getSnakeBody(), food);
             }
-
-
             snake.reconciliation();
         }, this.Frames)
+
+    }
+
+    clean(app: HTMLDivElement | null) {
+        if (!app) {
+            throw new Error("there is not app id in the html file");
+        }
+        clearInterval(this.stop)
+        app.innerHTML = "";
     }
 }
