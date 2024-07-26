@@ -9,9 +9,6 @@ export class Square implements ISquare {
         this.squareElement.style.width = width;
         this.squareElement.style.height = height;
         this.squareElement.style.borderColor = "white";
-        this.squareElement.style.borderWidth = "1px";
-        this.squareElement.style.borderStyle = "solid";
-        this.squareElement.style.borderColor = "white";
         this.squareElement.style.boxSizing = "border-box";
         this.squareElement.style.transition = "0.2";
     }
