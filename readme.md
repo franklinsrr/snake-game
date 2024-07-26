@@ -2,7 +2,7 @@
 
 This repository contains a JavaScript implementation of the classic Snake game.
 
-![Ping Pong Gameplay](https://github.com/franklinsrr/snake-game/blob/develop/public/snake.gif?raw=true)
+![Ping Pong Gameplay](https://github.com/franklinsrr/snake-game/blob/develop/public/snake2.gif?raw=true)
 
 ## Features
 
