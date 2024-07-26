@@ -30,6 +30,9 @@ export class Snake implements ISnake {
         this.body.insertNode({ cords: { x: 10, y: 1 }, direction: "RIGHT" })
         this.body.insertNode({ cords: { x: 11, y: 1 }, direction: "RIGHT" })
         this.body.insertNode({ cords: { x: 12, y: 1 }, direction: "RIGHT" })
+        this.body.insertNode({ cords: { x: 13, y: 1 }, direction: "RIGHT" })
+        this.body.insertNode({ cords: { x: 14, y: 1 }, direction: "RIGHT" })
+        this.body.insertNode({ cords: { x: 15, y: 1 }, direction: "RIGHT" })
     }
 
     getSnakePosition(): ICords {
